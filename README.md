@@ -1,12 +1,4 @@
 erp-system-lite
 ===============
 
-ERP System Lite
-
-java8
-
-javafx
-
-gradle
-
-mysql
+ERP System Lite (java8, javafx, gradle, mysql)
