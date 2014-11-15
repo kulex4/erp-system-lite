@@ -2,7 +2,11 @@ package com.erpsystem;
 
 import java.io.IOException;
 
+import com.erpsystem.controller.CompanyController;
+import com.erpsystem.model.Company;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -14,6 +18,14 @@ import javafx.stage.Stage;
 public class MainApp extends Application {
 
     private Stage primaryStage;
+    private ObservableList<Company> companyData = FXCollections.observableArrayList();
+
+    public MainApp() {
+        // Some test data
+        companyData.add(new Company("Company1", "bla-bla-bla"));
+        companyData.add(new Company("Company2", "bla-bla"));
+        companyData.add(new Company("Company3", "bla"));
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -25,7 +37,12 @@ public class MainApp extends Application {
 
     public void showCompanyOverview() {
         try {
-            BorderPane companyOverview = FXMLLoader.load(getClass().getResource("/CompanyOverview.fxml"));
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/CompanyOverview.fxml"));
+            BorderPane companyOverview = loader.load();
+
+            CompanyController controller = loader.getController();
+            controller.setMainApp(this);
 
             Scene scene = new Scene(companyOverview);
             primaryStage.setScene(scene);
@@ -33,6 +50,10 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public ObservableList<Company> getCompanyData() {
+        return companyData;
     }
 
     public Stage getPrimaryStage() {
