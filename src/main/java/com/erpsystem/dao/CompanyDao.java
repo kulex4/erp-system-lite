@@ -14,5 +14,7 @@ public interface CompanyDao {
 
     void update(Company company);
 
+    Company findByName(String name);
+
     List<Company> findAll();
 }

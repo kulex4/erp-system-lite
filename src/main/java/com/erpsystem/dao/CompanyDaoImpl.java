@@ -70,6 +70,37 @@ public class CompanyDaoImpl implements CompanyDao {
     }
 
     @Override
+    public Company findByName(String name) {
+        Company company = null;
+        Connection dbConnection = null;
+        try {
+            dbConnection = DatabaseManager.getDBConnection();
+            DSLContext context = DSL.using(dbConnection, SQLDialect.MYSQL);
+
+            Record record = context.select().from(COMPANY).where(COMPANY.NAME.equal(name)).fetchOne();
+
+            if(record != null) {
+                company = new Company(
+                        record.getValue(COMPANY.ID),
+                        record.getValue(COMPANY.NAME),
+                        record.getValue(COMPANY.DESCRIPTION),
+                        record.getValue(COMPANY.NUMBER_OF_MANAGERS),
+                        record.getValue(COMPANY.NUMBER_OF_QUALIFIED_MANAGERS),
+                        record.getValue(COMPANY.NUMBER_OF_NOT_QUALIFIED_MANAGERS),
+                        record.getValue(COMPANY.TRAINING_COST));
+            }
+
+        } finally {
+            if(dbConnection != null) {
+                try {
+                    dbConnection.close();
+                } catch (SQLException ignore) { }
+            }
+        }
+        return company;
+    }
+
+    @Override
     public List<Company> findAll() {
         List<Company> companies = new ArrayList<>();
 
@@ -100,13 +131,16 @@ public class CompanyDaoImpl implements CompanyDao {
         return companies;
     }
 
+    // just for tests
     public static void main(String[] args) {
         CompanyDaoImpl dao = new CompanyDaoImpl();
         /*Company company = new Company("Home UPDATED", "Home Company", 11, 8, 2, 100.0);
         company.setId(8);
-
         dao.update(company);*/
-        List<Company> companies = dao.findAll();
-        System.out.println(companies.size());
+
+        /*List<Company> companies = dao.findAll();
+        System.out.println(companies.size());*/
+
+        Company company = dao.findByName("ITRexGroup");
     }
 }
