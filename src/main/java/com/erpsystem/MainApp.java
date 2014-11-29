@@ -3,6 +3,8 @@ package com.erpsystem;
 import java.io.IOException;
 
 import com.erpsystem.controller.CompanyController;
+import com.erpsystem.dao.CompanyDao;
+import com.erpsystem.dao.CompanyDaoImpl;
 import com.erpsystem.model.Company;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -21,10 +23,8 @@ public class MainApp extends Application {
     private ObservableList<Company> companyData = FXCollections.observableArrayList();
 
     public MainApp() {
-        // Some test data
-        companyData.add(new Company("Company1", "bla-bla-bla"));
-        companyData.add(new Company("Company2", "bla-bla"));
-        companyData.add(new Company("Company3", "bla"));
+        CompanyDao companyDao = new CompanyDaoImpl();
+        companyData.addAll(companyDao.findAll());
     }
 
     @Override

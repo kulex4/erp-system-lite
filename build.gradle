@@ -9,4 +9,17 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile 'mysql:mysql-connector-java:5.1.6'
+    compile 'org.jooq:jooq:3.5.0'
+    compile 'org.jooq:jooq-meta:3.5.0'
+    compile 'org.jooq:jooq-codegen:3.5.0'
+}
+
+
+task jooqGenerate(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'org.jooq.util.GenerationTool'
+    args = ['/jooq-config.xml']
+    standardOutput = System.out
+    errorOutput = System.err
 }
