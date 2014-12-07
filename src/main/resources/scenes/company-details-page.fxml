@@ -5,9 +5,10 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane fx:controller="com.erpsystem.controller.CompanyDetailsController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.erpsystem.controller.CompanyDetailsController">
    <children>
-      <Button fx:id="addDetails" onAction="#addDetailsButtonClick" layoutX="402.0" layoutY="307.0" mnemonicParsing="false"  text="Добавить данные" />
-      <Button fx:id="viewDetails" onAction="#viewDetailsButtonClick" layoutX="108.0" layoutY="307.0" mnemonicParsing="false" text="Просмотреть данные" />
+      <Button fx:id="addDetails" layoutX="402.0" layoutY="307.0" mnemonicParsing="false" onAction="#addDetailsButtonClick" text="Добавить данные" />
+      <Button fx:id="viewDetails" layoutX="108.0" layoutY="307.0" mnemonicParsing="false" onAction="#viewDetailsButtonClick" text="Просмотреть данные" />
+      <Button fx:id="backButton" layoutX="50.0" layoutY="410.0" mnemonicParsing="false" onAction="#backButtonClick" text="Назад" />
    </children>
 </Pane>

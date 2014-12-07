@@ -10,6 +10,9 @@ import javafx.scene.control.Button;
 public class CompanyDetailsController {
 
     @FXML
+    private Button backButton;
+
+    @FXML
     private Button addDetails;
 
     @FXML
@@ -23,5 +26,10 @@ public class CompanyDetailsController {
     @FXML
     private void viewDetailsButtonClick(ActionEvent event) {
         SceneNavigator.loadScene(SceneNavigator.CHOOSE_SPECIALIST_SCENE);
+    }
+
+    @FXML
+    private void backButtonClick(ActionEvent event) {
+        SceneNavigator.loadScene(SceneNavigator.START_SCENE);
     }
 }

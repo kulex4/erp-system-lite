@@ -7,7 +7,10 @@ import javafx.scene.control.Button;
 /**
  * Created on 07.12.2014.
  */
-public class SpecialistPageController {
+public class SpecialistController {
+
+    @FXML
+    private Button backButton;
 
     @FXML
     private Button chooseSpecialist;
@@ -23,5 +26,10 @@ public class SpecialistPageController {
     @FXML
     private void addSpecialistButtonClick(ActionEvent event) {
         SceneNavigator.loadScene(SceneNavigator.ADD_SPECIALIST_SCENE);
+    }
+
+    @FXML
+    private void backButtonClick(ActionEvent event) {
+        SceneNavigator.loadScene(SceneNavigator.START_SCENE);
     }
 }
