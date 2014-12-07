@@ -11,10 +11,10 @@ import javafx.scene.layout.StackPane;
 public class MainController {
 
     @FXML
-    private StackPane vistaHolder;
+    private StackPane sceneHolder;
 
     public void setScene(Node node) {
-        vistaHolder.getChildren().setAll(node);
+        sceneHolder.getChildren().setAll(node);
     }
 
 }

@@ -14,6 +14,7 @@ public class CompanyController {
 
     @FXML
     private TableView<Company> companyTable;
+
     @FXML
     private TableColumn<Company, String> companyNameColumn;
 

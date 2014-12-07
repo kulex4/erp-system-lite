@@ -10,7 +10,11 @@ import java.io.IOException;
 public class SceneNavigator {
 
     public static final String MAIN = "/scenes/main.fxml";
-    public static final String START_SCENE = "/scenes/StartPage.fxml";
+    public static final String START_SCENE = "/scenes/start-page.fxml";
+
+    public static final String SPECIALISTS_SCENE = "/scenes/specialist-page.fxml";
+    public static final String CHOOSE_SPECIALIST_SCENE = "/scenes/start-page.fxml";
+    public static final String ADD_SPECIALIST_SCENE = "/scenes/start-page.fxml";
 
 
     private static MainController mainController;
