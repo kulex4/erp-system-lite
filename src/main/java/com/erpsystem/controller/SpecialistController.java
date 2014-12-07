@@ -2,30 +2,60 @@ package com.erpsystem.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+
+import javax.swing.table.TableColumn;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Created on 07.12.2014.
  */
-public class SpecialistController {
+public class SpecialistController implements Initializable {
 
     @FXML
     private Button backButton;
 
     @FXML
-    private Button chooseSpecialist;
+    private Button addButton;
 
     @FXML
-    private Button addSpecialist;
+    private Button deleteButton;
 
     @FXML
-    private void chooseSpecialistButtonClick(ActionEvent event) {
-        SceneNavigator.loadScene(SceneNavigator.CHOOSE_SPECIALIST_SCENE);
+    private Button modifyButton;
+
+    @FXML
+    private Button moreInfoButton;
+
+    public SpecialistController() {
+
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
     }
 
     @FXML
-    private void addSpecialistButtonClick(ActionEvent event) {
-        SceneNavigator.loadScene(SceneNavigator.ADD_SPECIALIST_SCENE);
+    private void addButtonClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    private void deleteButtonClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    private void modifyButtonClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    private void moreInfoButtonClick(ActionEvent event) {
+
     }
 
     @FXML
