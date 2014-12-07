@@ -5,12 +5,11 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<Pane fx:controller="com.erpsystem.controller.StartPageController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.erpsystem.controller.StartPageController">
    <children>
-      <TextArea layoutX="68.0" layoutY="79.0" prefHeight="100.0" prefWidth="477.0" text=" ОАО &quot;НЛМК&quot; – лидирующий международный производитель высококачественной &#10;стальной продукции с вертикально-интегрированной моделью бизнеса.&#10; Добыча сырья и производство стали сосредоточены в низкозатратных регионах,&#10; изготовление готовой продукции осуществляется в непосредственной близости &#10;от основных потребителей в России, Северной Америке и странах ЕС." />
-      <Button fx:id="companyDetails" layoutX="257.0" layoutY="200.0" mnemonicParsing="false" text="Данные о компании" />
-      <Button fx:id="specialistsDetails" onAction="#specialistsDetailsButtonClick" layoutX="45.0" layoutY="200.0" mnemonicParsing="false" text="Данные о специалистах" />
-      <Button fx:id="workReports" layoutX="452.0" layoutY="200.0" mnemonicParsing="false" text="Отчеты о работе" />
+      <Button fx:id="companyDetails" layoutX="60.0" layoutY="206.0" mnemonicParsing="false" onAction="#companyDetailsButtonClick" text="Данные о компании" />
+      <Button fx:id="specialistsDetails" layoutX="246.0" layoutY="206.0" mnemonicParsing="false" onAction="#specialistsDetailsButtonClick" text="Данные о специалистах" />
+      <Button fx:id="workReports" layoutX="471.0" layoutY="206.0" mnemonicParsing="false" text="Отчеты о работе" />
+      <Label layoutX="60.0" layoutY="72.0" prefHeight="88.0" prefWidth="520.0" text="ОАО &quot;НЛМК&quot; – лидирующий международный производитель высококачественной стальной продукции с вертикально-интегрированной моделью бизнеса. Добыча сырья и производство стали сосредоточены в низкозатратных регионах, изготовление готовой продукции осуществляется в непосредственной близости от основных потребителей в России, Северной Америке и странах ЕС." textAlignment="CENTER" wrapText="true" />
    </children>
 </Pane>

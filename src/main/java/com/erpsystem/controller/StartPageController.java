@@ -21,7 +21,7 @@ public class StartPageController {
 
     @FXML
     private void companyDetailsButtonClick(ActionEvent event) {
-        SceneNavigator.loadScene(SceneNavigator.START_SCENE);
+        SceneNavigator.loadScene(SceneNavigator.COMPANY_DETAILS_SCENE);
     }
 
     @FXML
