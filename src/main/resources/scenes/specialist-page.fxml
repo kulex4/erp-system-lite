@@ -9,6 +9,6 @@
    <children>
       <Button fx:id="chooseSpecialist" onAction="#chooseSpecialistButtonClick" layoutX="400.0" layoutY="307.0" mnemonicParsing="false" text="Выбрать специалиста" />
       <Button fx:id="addSpecialist" onAction="#addSpecialistButtonClick" layoutX="114.0" layoutY="307.0" mnemonicParsing="false" text="Добавить специалиста" />
-      <Button fx:id="backButton" layoutX="50.0" layoutY="410.0" mnemonicParsing="false" onAction="#backButtonClick" text="Назад" />
+      <Button fx:id="backButton" layoutX="48.0" layoutY="410.0" mnemonicParsing="false" onAction="#backButtonClick" prefWidth="80.0" text="Назад" />
    </children>
 </Pane>

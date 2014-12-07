@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -7,8 +8,34 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.erpsystem.controller.CompanyDetailsController">
    <children>
-      <Button fx:id="addDetails" layoutX="402.0" layoutY="307.0" mnemonicParsing="false" onAction="#addDetailsButtonClick" text="Добавить данные" />
-      <Button fx:id="viewDetails" layoutX="108.0" layoutY="307.0" mnemonicParsing="false" onAction="#viewDetailsButtonClick" text="Просмотреть данные" />
-      <Button fx:id="backButton" layoutX="50.0" layoutY="410.0" mnemonicParsing="false" onAction="#backButtonClick" text="Назад" />
+      <Button fx:id="backButton" layoutX="48.0" layoutY="410.0" mnemonicParsing="false" onAction="#backButtonClick" prefWidth="80.0" text="Назад" />
+      <GridPane layoutX="54.0" layoutY="61.0" prefHeight="294.0" prefWidth="532.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="474.0" minWidth="10.0" prefWidth="474.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="58.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label fx:id="companyNameLabel" text="Имя компании">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label text="Численность управленческих сотрудников" GridPane.rowIndex="1" />
+            <Label text="Численность сотрудников, прошедших повышение квалификации" GridPane.rowIndex="2" />
+            <Label text="Численность сотрудников, не прошедших повышение квалификации" GridPane.rowIndex="3" />
+            <Label text="Величина затрат на обучение сотрудников, выделяемая в отчетном периоде" GridPane.rowIndex="4" />
+            <TextField fx:id="numberOfManagersField" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="numberOfQualifiedManagersField" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="numberOfNotQualifiedManagersField" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="trainingCostField" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         </children>
+      </GridPane>
+      <Button fx:id="modificationButton" onAction="#modificationButtonClick" layoutX="504.0" layoutY="410.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Изменить" />
    </children>
 </Pane>
