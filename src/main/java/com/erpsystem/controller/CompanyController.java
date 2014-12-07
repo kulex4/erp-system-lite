@@ -23,8 +23,6 @@ public class CompanyController {
     @FXML
     private Label companyDescriptionLabel;
 
-    private MainApp mainApp;
-
     public CompanyController() {
     }
 
@@ -38,8 +36,7 @@ public class CompanyController {
     }
 
     public void setMainApp(MainApp mainApp) {
-        this.mainApp = mainApp;
-        companyTable.setItems(mainApp.getCompanyData());
+        //companyTable.setItems(mainApp.getCompanyData());
     }
 
     private void showCompanyDetails(Company company) {
