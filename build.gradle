@@ -24,3 +24,12 @@ task jooqGenerate(type: JavaExec) {
     standardOutput = System.out
     errorOutput = System.err
 }
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'com.erpsystem.MainApp'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
