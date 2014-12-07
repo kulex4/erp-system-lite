@@ -20,6 +20,8 @@ public class SceneNavigator {
     public static final String ADD_COMPANY_DETAILS_SCENE = "/scenes/company-details-page.fxml";
     public static final String VIEW_COMPANY_DETAILS_SCENE = "/scenes/company-details-page.fxml";
 
+    public static final String WORK_REPORTS_SCENE = "/scenes/work-reports-page.fxml";
+
     private static MainController mainController;
 
     public static void setMainController(MainController mainController) {

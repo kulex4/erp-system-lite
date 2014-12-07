@@ -9,7 +9,7 @@
    <children>
       <Button fx:id="companyDetails" layoutX="60.0" layoutY="206.0" mnemonicParsing="false" onAction="#companyDetailsButtonClick" text="Данные о компании" />
       <Button fx:id="specialistsDetails" layoutX="246.0" layoutY="206.0" mnemonicParsing="false" onAction="#specialistsDetailsButtonClick" text="Данные о специалистах" />
-      <Button fx:id="workReports" layoutX="471.0" layoutY="206.0" mnemonicParsing="false" text="Отчеты о работе" />
+      <Button fx:id="workReports" layoutX="471.0" layoutY="206.0" mnemonicParsing="false" onAction="#workReportsButtonClick" text="Отчеты о работе" />
       <Label layoutX="60.0" layoutY="72.0" prefHeight="88.0" prefWidth="520.0" text="ОАО &quot;НЛМК&quot; – лидирующий международный производитель высококачественной стальной продукции с вертикально-интегрированной моделью бизнеса. Добыча сырья и производство стали сосредоточены в низкозатратных регионах, изготовление готовой продукции осуществляется в непосредственной близости от основных потребителей в России, Северной Америке и странах ЕС." textAlignment="CENTER" wrapText="true" />
    </children>
 </Pane>

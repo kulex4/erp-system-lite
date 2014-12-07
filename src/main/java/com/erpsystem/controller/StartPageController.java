@@ -26,7 +26,7 @@ public class StartPageController {
 
     @FXML
     private void workReportsButtonClick(ActionEvent event) {
-        SceneNavigator.loadScene(SceneNavigator.START_SCENE);
+        SceneNavigator.loadScene(SceneNavigator.WORK_REPORTS_SCENE);
     }
 
     @FXML
