@@ -36,9 +36,9 @@ public class SpecialistDaoImpl implements SpecialistDao {
                     .set(SPECIALIST.NUMBER_OF_EMPLOEES, specialist.getNumberOfEmployees())
                     .set(SPECIALIST.NUMBER_OF_SHIFTS, specialist.getNumberOfShifts())
                     .set(SPECIALIST.NUMBER_OF_INTERNSHIPS, specialist.getNumberOfInternships())
-                    .set(SPECIALIST.ID_COMPANY, specialist.getCompany().getIdCompany())
-                    .set(SPECIALIST.ID_EDUCATION, specialist.getEducation().getIdEducation())
-                    .set(SPECIALIST.ID_COMPETENCE, specialist.getCompetence().getIdCompetence())
+                    .set(SPECIALIST.ID_COMPANY, specialist.getIdCompany())
+                    .set(SPECIALIST.ID_EDUCATION, specialist.getIdEducation())
+                    .set(SPECIALIST.ID_COMPETENCE, specialist.getIdCompetence())
                     .returning(SPECIALIST.ID)
                     .fetchOne();
             id = record.getValue(SPECIALIST.ID);
@@ -54,28 +54,25 @@ public class SpecialistDaoImpl implements SpecialistDao {
     }
 
     @Override
-    public int update(Specialist specialist) {
+    public void update(Specialist specialist) {
 
-        int id;
         Connection dbConnection = null;
         try {
             dbConnection = DatabaseManager.getDBConnection();
             DSLContext context = DSL.using(dbConnection, SQLDialect.MYSQL);
 
-            Record record = context.update(SPECIALIST)
+            context.update(SPECIALIST)
                     .set(SPECIALIST.FIO, specialist.getFio())
                     .set(SPECIALIST.AGE, specialist.getAge())
                     .set(SPECIALIST.EXPERIENCE, specialist.getExperience())
                     .set(SPECIALIST.NUMBER_OF_EMPLOEES, specialist.getNumberOfEmployees())
                     .set(SPECIALIST.NUMBER_OF_SHIFTS, specialist.getNumberOfShifts())
                     .set(SPECIALIST.NUMBER_OF_INTERNSHIPS, specialist.getNumberOfInternships())
-                    .set(SPECIALIST.ID_COMPANY, specialist.getCompany().getIdCompany())
-                    .set(SPECIALIST.ID_EDUCATION, specialist.getEducation().getIdEducation())
-                    .set(SPECIALIST.ID_COMPETENCE, specialist.getCompetence().getIdCompetence())
+                    .set(SPECIALIST.ID_COMPANY, specialist.getIdCompany())
+                    .set(SPECIALIST.ID_EDUCATION, specialist.getIdEducation())
+                    .set(SPECIALIST.ID_COMPETENCE, specialist.getIdCompetence())
                     .where(SPECIALIST.ID.equal(specialist.getId()))
-                    .returning(SPECIALIST.ID)
-                    .fetchOne();
-            id = record.getValue(SPECIALIST.ID);
+                    .execute();
 
         } finally {
             if(dbConnection != null) {
@@ -84,7 +81,6 @@ public class SpecialistDaoImpl implements SpecialistDao {
                 } catch (SQLException ignore) { }
             }
         }
-        return id;
     }
 
     @Override
@@ -95,7 +91,14 @@ public class SpecialistDaoImpl implements SpecialistDao {
             dbConnection = DatabaseManager.getDBConnection();
             DSLContext context = DSL.using(dbConnection, SQLDialect.MYSQL);
 
-            Record record = context.select().from(SPECIALIST).where(SPECIALIST.FIO.equal(fio)).fetchOne();
+            Record record = context.select()
+                    .from(SPECIALIST
+                            .join(COMPANY).on(SPECIALIST.ID_COMPANY.equal(COMPANY.ID_COMPANY))
+                            .join(EDUCATION).on(SPECIALIST.ID_EDUCATION.equal(EDUCATION.ID_EDUCATION))
+                            .join(COMPETENCE).on(SPECIALIST.ID_COMPETENCE.equal(COMPETENCE.ID_COMPETENCE)))
+                    .where(SPECIALIST.FIO.equal(fio))
+                    .fetchOne();
+
             specialist = manageChildObjects(record);
 
         } finally {
@@ -117,10 +120,16 @@ public class SpecialistDaoImpl implements SpecialistDao {
             dbConnection = DatabaseManager.getDBConnection();
             DSLContext context = DSL.using(dbConnection, SQLDialect.MYSQL);
 
-            Result<Record> records = context.select().from(SPECIALIST).where(SPECIALIST.ID_COMPANY.equal(id)).fetch();
+            Result<Record> records = context.select()
+                    .from(SPECIALIST
+                            .join(COMPANY).on(SPECIALIST.ID_COMPANY.equal(COMPANY.ID_COMPANY))
+                            .join(EDUCATION).on(SPECIALIST.ID_EDUCATION.equal(EDUCATION.ID_EDUCATION))
+                            .join(COMPETENCE).on(SPECIALIST.ID_COMPETENCE.equal(COMPETENCE.ID_COMPETENCE)))
+                    .where(SPECIALIST.ID_COMPANY.equal(id))
+                    .fetch();
 
-            for(Record r : records) {
-                Specialist specialist = manageChildObjects(r);
+            for(Record record : records) {
+                Specialist specialist = manageChildObjects(record);
                 specialists.add(specialist);
             }
 
@@ -164,15 +173,6 @@ public class SpecialistDaoImpl implements SpecialistDao {
         Specialist specialist = null;
 
         if(record != null) {
-            CompanyDao companyDao = new CompanyDaoImpl();
-            Company company = companyDao.findById(record.getValue(COMPANY.ID_COMPANY));
-
-            EducationDao educationDao = new EducationDaoImpl();
-            Education education = educationDao.findById(record.getValue(EDUCATION.ID_EDUCATION));
-
-            CompetenceDao competenceDao = new CompetenceDaoImpl();
-            Competence competence = competenceDao.findById(record.getValue(COMPETENCE.ID_COMPETENCE));
-
             specialist = new Specialist(
                     record.getValue(SPECIALIST.ID),
                     record.getValue(SPECIALIST.FIO),
@@ -181,7 +181,9 @@ public class SpecialistDaoImpl implements SpecialistDao {
                     record.getValue(SPECIALIST.NUMBER_OF_EMPLOEES),
                     record.getValue(SPECIALIST.NUMBER_OF_SHIFTS),
                     record.getValue(SPECIALIST.NUMBER_OF_INTERNSHIPS),
-                    company, education, competence);
+                    record.getValue(SPECIALIST.ID_COMPANY),
+                    record.getValue(SPECIALIST.ID_EDUCATION),
+                    record.getValue(SPECIALIST.ID_COMPETENCE));
         }
         return specialist;
     }

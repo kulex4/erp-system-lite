@@ -48,15 +48,14 @@ public class CompanyDaoImpl implements CompanyDao {
     }
 
     @Override
-    public int update(Company company) {
+    public void update(Company company) {
 
-        int id;
         Connection dbConnection = null;
         try {
             dbConnection = DatabaseManager.getDBConnection();
             DSLContext context = DSL.using(dbConnection, SQLDialect.MYSQL);
 
-            Record record = context.update(COMPANY)
+            context.update(COMPANY)
                     .set(COMPANY.NAME, company.getName())
                     .set(COMPANY.DESCRIPTION, company.getDescription())
                     .set(COMPANY.NUMBER_OF_MANAGERS, company.getNumberOfManagers())
@@ -64,9 +63,7 @@ public class CompanyDaoImpl implements CompanyDao {
                     .set(COMPANY.NUMBER_OF_NOT_QUALIFIED_MANAGERS, company.getNumberOfNotQualifiedManagers())
                     .set(COMPANY.TRAINING_COST, company.getTrainingCost())
                     .where(COMPANY.ID_COMPANY.equal(company.getIdCompany()))
-                    .returning(COMPANY.ID_COMPANY)
-                    .fetchOne();
-            id = record.getValue(COMPANY.ID_COMPANY);
+                    .execute();
 
         } finally {
             if(dbConnection != null) {
@@ -75,7 +72,6 @@ public class CompanyDaoImpl implements CompanyDao {
                 } catch (SQLException ignore) { }
             }
         }
-        return id;
     }
 
     @Override

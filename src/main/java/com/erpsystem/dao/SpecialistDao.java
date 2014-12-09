@@ -10,7 +10,7 @@ public interface SpecialistDao {
 
     int insert(Specialist specialist);
 
-    int update(Specialist specialist);
+    void update(Specialist specialist);
 
     Specialist findByFio(String fio);
 

@@ -10,7 +10,7 @@ public interface CompetenceDao {
 
     int insert(Competence competence);
 
-    int update(Competence competence);
+    void update(Competence competence);
 
     Competence findById(int id);
 

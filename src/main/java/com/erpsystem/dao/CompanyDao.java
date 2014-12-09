@@ -12,7 +12,7 @@ public interface CompanyDao {
 
     int insert(Company company);
 
-    int update(Company company);
+    void update(Company company);
 
     Company findByName(String name);
 

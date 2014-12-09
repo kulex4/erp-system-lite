@@ -10,7 +10,7 @@ public interface EducationDao {
 
     int insert(Education education);
 
-    int update(Education education);
+    void update(Education education);
 
     Education findById(int id);
 

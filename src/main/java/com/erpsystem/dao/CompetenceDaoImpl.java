@@ -48,15 +48,14 @@ public class CompetenceDaoImpl implements CompetenceDao {
     }
 
     @Override
-    public int update(Competence competence) {
+    public void update(Competence competence) {
 
-        int id;
         Connection dbConnection = null;
         try {
             dbConnection = DatabaseManager.getDBConnection();
             DSLContext context = DSL.using(dbConnection, SQLDialect.MYSQL);
 
-            Record record = context.update(COMPETENCE)
+            context.update(COMPETENCE)
                     .set(COMPETENCE.RESPONSIBILITY, competence.getResponsibility())
                     .set(COMPETENCE.COMPETENCE_, competence.getCompetence())
                     .set(COMPETENCE.COMMUNICABILITY, competence.getCommunicability())
@@ -64,9 +63,7 @@ public class CompetenceDaoImpl implements CompetenceDao {
                     .set(COMPETENCE.NUMBER_OF_QUALIFICATIONS, competence.getNumberOfQualifications())
                     .set(COMPETENCE.EFFECTIVENESS, competence.getEffectiveness())
                     .where(COMPETENCE.ID_COMPETENCE.equal(competence.getIdCompetence()))
-                    .returning(COMPETENCE.ID_COMPETENCE)
-                    .fetchOne();
-            id = record.getValue(COMPETENCE.ID_COMPETENCE);
+                    .execute();
 
         } finally {
             if(dbConnection != null) {
@@ -75,7 +72,6 @@ public class CompetenceDaoImpl implements CompetenceDao {
                 } catch (SQLException ignore) { }
             }
         }
-        return id;
     }
 
     @Override

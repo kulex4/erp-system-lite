@@ -44,21 +44,18 @@ public class EducationDaoImpl implements EducationDao {
     }
 
     @Override
-    public int update(Education education) {
+    public void update(Education education) {
 
-        int id;
         Connection dbConnection = null;
         try {
             dbConnection = DatabaseManager.getDBConnection();
             DSLContext context = DSL.using(dbConnection, SQLDialect.MYSQL);
 
-            Record record = context.update(EDUCATION)
+            context.update(EDUCATION)
                     .set(EDUCATION.NAME, education.getName())
                     .set(EDUCATION.FACTOR, education.getFactor())
                     .where(EDUCATION.ID_EDUCATION.equal(education.getIdEducation()))
-                    .returning(EDUCATION.ID_EDUCATION)
-                    .fetchOne();
-            id = record.getValue(EDUCATION.ID_EDUCATION);
+                    .execute();
 
         } finally {
             if(dbConnection != null) {
@@ -67,7 +64,6 @@ public class EducationDaoImpl implements EducationDao {
                 } catch (SQLException ignore) { }
             }
         }
-        return id;
     }
 
     @Override
