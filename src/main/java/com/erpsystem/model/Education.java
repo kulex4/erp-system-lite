@@ -21,7 +21,7 @@ public class Education {
     }
 
     public Education(String name, int factor) {
-        new Education(null, name, factor);
+        this(0, name, factor);
     }
 
     public int getIdEducation() {

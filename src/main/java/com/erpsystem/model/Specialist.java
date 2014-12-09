@@ -38,7 +38,7 @@ public class Specialist {
     public Specialist(String fio, int age, int experience, int numberOfEmployees, int numberOfShifts,
                       int numberOfInternships, Company company, Education education, Competence competence) {
 
-        new Specialist(null, fio, age, experience, numberOfEmployees, numberOfShifts, numberOfInternships,
+        this(0, fio, age, experience, numberOfEmployees, numberOfShifts, numberOfInternships,
                 company, education, competence);
     }
 

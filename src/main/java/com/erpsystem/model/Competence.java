@@ -31,7 +31,7 @@ public class Competence {
     public Competence(int responsibility, int competence, int communicability, int testingResult,
                       int numberOfQualifications, int effectiveness) {
 
-        new Competence(null, responsibility, competence, communicability,
+        this(0, responsibility, competence, communicability,
                 testingResult, numberOfQualifications, effectiveness);
     }
 
