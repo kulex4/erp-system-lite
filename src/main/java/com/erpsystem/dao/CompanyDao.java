@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface CompanyDao {
 
-    void insert(Company company) throws SQLException, ClassNotFoundException;
+    void insert(Company company);
 
     void update(Company company);
 

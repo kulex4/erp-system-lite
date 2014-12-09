@@ -143,7 +143,7 @@ public class SpecialistDaoImpl implements SpecialistDao {
                 } catch (SQLException ignore) { }
             }
         }
-        return null;
+        return specialists;
     }
 
     @Override
