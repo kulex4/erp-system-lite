@@ -90,7 +90,8 @@ public class SpecialistController implements Initializable {
         responsibilityColumn.setCellValueFactory(new PropertyValueFactory<TableViewObject, Integer>("responsibility"));
         competenceColumn.setCellValueFactory(new PropertyValueFactory<TableViewObject, Integer>("competence"));
         communicabilityColumn.setCellValueFactory(new PropertyValueFactory<TableViewObject, Integer>("communicability"));
-        // TODO disable some buttons, enable others
+
+        tableSpecialists.setItems(specialistsData);
     }
 
     private void initTableData() {

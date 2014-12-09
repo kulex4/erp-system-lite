@@ -10,11 +10,11 @@
         <Button fx:id="backButton" layoutX="41.0" layoutY="410.0" mnemonicParsing="false" onAction="#backButtonClick" prefWidth="80.0" text="Назад" />
         <TableView fx:id="tableSpecialists" layoutX="41.0" layoutY="43.0" prefHeight="347.0" prefWidth="559.0">
             <columns>
-                <TableColumn fx:id="fioColumn" minWidth="-1.0" prefWidth="129.0" text="ФИО" />
-                <TableColumn fx:id="educationColumn" minWidth="-1.0" prefWidth="85.0" text="Образование" />
-                <TableColumn fx:id="responsibilityColumn" minWidth="-1.0" prefWidth="106.0" text="Ответственность" />
-                <TableColumn fx:id="competenceColumn" minWidth="-1.0" prefWidth="101.0" text="Компетентность" />
-                <TableColumn fx:id="communicabilityColumn" minWidth="-1.0" prefWidth="137.0" text="Коммуникабельность" />
+                <TableColumn fx:id="fioColumn" editable="false" minWidth="-1.0" prefWidth="117.0" resizable="false" text="ФИО" />
+                <TableColumn fx:id="educationColumn" editable="false" minWidth="-1.0" prefWidth="97.0" resizable="false" text="Образование" />
+                <TableColumn fx:id="responsibilityColumn" editable="false" minWidth="-1.0" prefWidth="104.0" resizable="false" text="Ответственность" />
+                <TableColumn fx:id="competenceColumn" editable="false" minWidth="-1.0" prefWidth="100.0" resizable="false" text="Компетентность" />
+                <TableColumn fx:id="communicabilityColumn" editable="false" minWidth="-1.0" prefWidth="139.0" resizable="false" text="Коммуникабельность" />
             </columns>
         </TableView>
         <Button fx:id="deleteButton" layoutX="340.0" layoutY="410.0" mnemonicParsing="false" onAction="#deleteButtonClick" prefWidth="80.0" text="Удалить" />
