@@ -7,7 +7,7 @@ import javafx.beans.property.*;
  */
 public class Company {
 
-    private IntegerProperty id;
+    private IntegerProperty idCompany;
     private StringProperty name;
     private StringProperty description;
     private IntegerProperty numberOfManagers;
@@ -15,10 +15,10 @@ public class Company {
     private IntegerProperty numberOfNotQualifiedManagers;
     private DoubleProperty trainingCost;
 
-    public Company(Integer id, String name, String description, int numberOfManagers, int numberOfQualifiedManagers,
+    public Company(Integer idCompany, String name, String description, int numberOfManagers, int numberOfQualifiedManagers,
                    int numberOfNotQualifiedManagers, double trainingCost) {
 
-        this.id = new SimpleIntegerProperty(id);
+        this.idCompany = new SimpleIntegerProperty(idCompany);
         this.name = new SimpleStringProperty(name);
         this.description = new SimpleStringProperty(description);
         this.numberOfManagers = new SimpleIntegerProperty(numberOfManagers);
@@ -30,20 +30,20 @@ public class Company {
     public Company(String name, String description, int numberOfManagers, int numberOfQualifiedManagers,
                    int numberOfNotQualifiedManagers, double trainingCost) {
 
-        new Company(null, name, description, numberOfManagers, numberOfQualifiedManagers,
+        this(0, name, description, numberOfManagers, numberOfQualifiedManagers,
                 numberOfNotQualifiedManagers, trainingCost);
     }
 
-    public int getId() {
-        return id.get();
+    public int getIdCompany() {
+        return idCompany.get();
     }
 
-    public IntegerProperty idProperty() {
-        return id;
+    public IntegerProperty idCompanyProperty() {
+        return idCompany;
     }
 
-    public void setId(int id) {
-        this.id.set(id);
+    public void setIdCompany(int idCompany) {
+        this.idCompany.set(idCompany);
     }
 
 

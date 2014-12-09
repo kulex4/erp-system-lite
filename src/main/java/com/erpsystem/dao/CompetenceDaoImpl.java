@@ -18,21 +18,24 @@ import java.util.List;
 public class CompetenceDaoImpl implements CompetenceDao {
 
     @Override
-    public void insert(Competence competence) {
+    public int insert(Competence competence) {
 
+        int id;
         Connection dbConnection = null;
         try {
             dbConnection = DatabaseManager.getDBConnection();
             DSLContext context = DSL.using(dbConnection, SQLDialect.MYSQL);
 
-            context.insertInto(COMPETENCE)
+            Record record = context.insertInto(COMPETENCE)
                     .set(COMPETENCE.RESPONSIBILITY, competence.getResponsibility())
                     .set(COMPETENCE.COMPETENCE_, competence.getCompetence())
                     .set(COMPETENCE.COMMUNICABILITY, competence.getCommunicability())
                     .set(COMPETENCE.TESTING_RESULT, competence.getTestingResult())
                     .set(COMPETENCE.NUMBER_OF_QUALIFICATIONS, competence.getNumberOfQualifications())
                     .set(COMPETENCE.EFFECTIVENESS, competence.getEffectiveness())
-                    .execute();
+                    .returning(COMPETENCE.ID_COMPETENCE)
+                    .fetchOne();
+            id = record.getValue(COMPETENCE.ID_COMPETENCE);
 
         } finally {
             if(dbConnection != null) {
@@ -41,17 +44,19 @@ public class CompetenceDaoImpl implements CompetenceDao {
                 } catch (SQLException ignore) { }
             }
         }
+        return id;
     }
 
     @Override
-    public void update(Competence competence) {
+    public int update(Competence competence) {
 
+        int id;
         Connection dbConnection = null;
         try {
             dbConnection = DatabaseManager.getDBConnection();
             DSLContext context = DSL.using(dbConnection, SQLDialect.MYSQL);
 
-            context.update(COMPETENCE)
+            Record record = context.update(COMPETENCE)
                     .set(COMPETENCE.RESPONSIBILITY, competence.getResponsibility())
                     .set(COMPETENCE.COMPETENCE_, competence.getCompetence())
                     .set(COMPETENCE.COMMUNICABILITY, competence.getCommunicability())
@@ -59,7 +64,9 @@ public class CompetenceDaoImpl implements CompetenceDao {
                     .set(COMPETENCE.NUMBER_OF_QUALIFICATIONS, competence.getNumberOfQualifications())
                     .set(COMPETENCE.EFFECTIVENESS, competence.getEffectiveness())
                     .where(COMPETENCE.ID_COMPETENCE.equal(competence.getIdCompetence()))
-                    .execute();
+                    .returning(COMPETENCE.ID_COMPETENCE)
+                    .fetchOne();
+            id = record.getValue(COMPETENCE.ID_COMPETENCE);
 
         } finally {
             if(dbConnection != null) {
@@ -68,6 +75,7 @@ public class CompetenceDaoImpl implements CompetenceDao {
                 } catch (SQLException ignore) { }
             }
         }
+        return id;
     }
 
     @Override
@@ -79,17 +87,7 @@ public class CompetenceDaoImpl implements CompetenceDao {
             DSLContext context = DSL.using(dbConnection, SQLDialect.MYSQL);
 
             Record record = context.select().from(COMPETENCE).where(COMPETENCE.ID_COMPETENCE.equal(id)).fetchOne();
-
-            if(record != null) {
-                competence = new Competence(
-                        record.getValue(COMPETENCE.ID_COMPETENCE),
-                        record.getValue(COMPETENCE.RESPONSIBILITY),
-                        record.getValue(COMPETENCE.COMPETENCE_),
-                        record.getValue(COMPETENCE.COMMUNICABILITY),
-                        record.getValue(COMPETENCE.TESTING_RESULT),
-                        record.getValue(COMPETENCE.NUMBER_OF_QUALIFICATIONS),
-                        record.getValue(COMPETENCE.EFFECTIVENESS));
-            }
+            competence = manageChildObjects(record);
 
         } finally {
             if(dbConnection != null) {
@@ -112,14 +110,7 @@ public class CompetenceDaoImpl implements CompetenceDao {
 
             Result<Record> records = context.select().from(COMPETENCE).fetch();
             for(Record r : records) {
-                Competence competence = new Competence(
-                        r.getValue(COMPETENCE.ID_COMPETENCE),
-                        r.getValue(COMPETENCE.RESPONSIBILITY),
-                        r.getValue(COMPETENCE.COMPETENCE_),
-                        r.getValue(COMPETENCE.COMMUNICABILITY),
-                        r.getValue(COMPETENCE.TESTING_RESULT),
-                        r.getValue(COMPETENCE.NUMBER_OF_QUALIFICATIONS),
-                        r.getValue(COMPETENCE.EFFECTIVENESS));
+                Competence competence = manageChildObjects(r);
                 competences.add(competence);
             }
 
@@ -132,4 +123,22 @@ public class CompetenceDaoImpl implements CompetenceDao {
         }
         return competences;
     }
+
+    private Competence manageChildObjects(Record record) {
+
+        Competence competence = null;
+
+        if(record != null) {
+            competence = new Competence(
+                    record.getValue(COMPETENCE.ID_COMPETENCE),
+                    record.getValue(COMPETENCE.RESPONSIBILITY),
+                    record.getValue(COMPETENCE.COMPETENCE_),
+                    record.getValue(COMPETENCE.COMMUNICABILITY),
+                    record.getValue(COMPETENCE.TESTING_RESULT),
+                    record.getValue(COMPETENCE.NUMBER_OF_QUALIFICATIONS),
+                    record.getValue(COMPETENCE.EFFECTIVENESS));
+        }
+        return competence;
+    }
+
 }

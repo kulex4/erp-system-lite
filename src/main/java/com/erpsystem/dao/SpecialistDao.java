@@ -1,9 +1,6 @@
 package com.erpsystem.dao;
 
-import com.erpsystem.model.Company;
 import com.erpsystem.model.Specialist;
-
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -11,9 +8,9 @@ import java.util.List;
  */
 public interface SpecialistDao {
 
-    void insert(Specialist specialist);
+    int insert(Specialist specialist);
 
-    void update(Specialist specialist);
+    int update(Specialist specialist);
 
     Specialist findByFio(String fio);
 

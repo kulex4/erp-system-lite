@@ -10,11 +10,13 @@ import java.util.List;
  */
 public interface CompanyDao {
 
-    void insert(Company company);
+    int insert(Company company);
 
-    void update(Company company);
+    int update(Company company);
 
     Company findByName(String name);
+
+    Company findById(int id);
 
     List<Company> findAll();
 }

@@ -8,9 +8,9 @@ import java.util.List;
  */
 public interface CompetenceDao {
 
-    void insert(Competence competence);
+    int insert(Competence competence);
 
-    void update(Competence competence);
+    int update(Competence competence);
 
     Competence findById(int id);
 

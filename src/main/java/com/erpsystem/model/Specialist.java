@@ -14,32 +14,32 @@ public class Specialist {
     private StringProperty fio;
     private IntegerProperty age;
     private IntegerProperty experience;
-    private IntegerProperty numberOfEmploees;
+    private IntegerProperty numberOfEmployees;
     private IntegerProperty numberOfShifts;
     private IntegerProperty numberOfInternships;
-    private IntegerProperty idCompany;
-    private IntegerProperty idEducation;
-    private IntegerProperty idCompetence;
+    private Company company;
+    private Education education;
+    private Competence competence;
 
-    public Specialist(Integer id, String fio, int age, int experience, int numberOfEmploees, int numberOfShifts,
-                      int numberOfInternships, int idCompany, int idEducation, int idCompetence) {
+    public Specialist(Integer id, String fio, int age, int experience, int numberOfEmployees, int numberOfShifts,
+                      int numberOfInternships, Company company, Education education, Competence competence) {
         this.id = new SimpleIntegerProperty(id);
         this.fio = new SimpleStringProperty(fio);
         this.age = new SimpleIntegerProperty(age);
         this.experience = new SimpleIntegerProperty(experience);
-        this.numberOfEmploees = new SimpleIntegerProperty(numberOfEmploees);
+        this.numberOfEmployees = new SimpleIntegerProperty(numberOfEmployees);
         this.numberOfShifts = new SimpleIntegerProperty(numberOfShifts);
         this.numberOfInternships = new SimpleIntegerProperty(numberOfInternships);
-        this.idCompany = new SimpleIntegerProperty(idCompany);
-        this.idEducation = new SimpleIntegerProperty(idEducation);
-        this.idCompetence = new SimpleIntegerProperty(idCompetence);
+        this.company = company;
+        this.education = education;
+        this.competence = competence;
     }
 
-    public Specialist(String fio, int age, int experience, int numberOfEmploees, int numberOfShifts,
-                      int numberOfInternships, int idCompany, int idEducation, int idCompetence) {
+    public Specialist(String fio, int age, int experience, int numberOfEmployees, int numberOfShifts,
+                      int numberOfInternships, Company company, Education education, Competence competence) {
 
-        new Specialist(null, age, experience, numberOfEmploees, numberOfShifts, numberOfInternships,
-                idCompany, idEducation, idCompetence);
+        new Specialist(null, fio, age, experience, numberOfEmployees, numberOfShifts, numberOfInternships,
+                company, education, competence);
     }
 
     public int getId() {
@@ -94,16 +94,16 @@ public class Specialist {
     }
 
 
-    public int getNumberOfEmploees() {
-        return numberOfEmploees.get();
+    public int getNumberOfEmployees() {
+        return numberOfEmployees.get();
     }
 
-    public IntegerProperty numberOfEmploeesProperty() {
-        return numberOfEmploees;
+    public IntegerProperty numberOfEmployeesProperty() {
+        return numberOfEmployees;
     }
 
-    public void setNumberOfEmploees(int numberOfEmploees) {
-        this.numberOfEmploees.set(numberOfEmploees);
+    public void setNumberOfEmployees(int numberOfEmployees) {
+        this.numberOfEmployees.set(numberOfEmployees);
     }
 
 
@@ -133,41 +133,29 @@ public class Specialist {
     }
 
 
-    public int getIdCompany() {
-        return idCompany.get();
+    public Company getCompany() {
+        return company;
     }
 
-    public IntegerProperty idCompanyProperty() {
-        return idCompany;
-    }
-
-    public void setIdCompany(int idCompany) {
-        this.idCompany.set(idCompany);
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
 
-    public int getIdEducation() {
-        return idEducation.get();
+    public Education getEducation() {
+        return education;
     }
 
-    public IntegerProperty idEducationProperty() {
-        return idEducation;
-    }
-
-    public void setIdEducation(int idEducation) {
-        this.idEducation.set(idEducation);
+    public void setEducation(Education education) {
+        this.education = education;
     }
 
 
-    public int getIdCompetence() {
-        return idCompetence.get();
+    public Competence getCompetence() {
+        return competence;
     }
 
-    public IntegerProperty idCompetenceProperty() {
-        return idCompetence;
-    }
-
-    public void setIdCompetence(int idCompetence) {
-        this.idCompetence.set(idCompetence);
+    public void setCompetence(Competence competence) {
+        this.competence = competence;
     }
 }

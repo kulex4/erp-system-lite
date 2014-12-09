@@ -8,9 +8,9 @@ import java.util.List;
  */
 public interface EducationDao {
 
-    void insert(Education education);
+    int insert(Education education);
 
-    void update(Education education);
+    int update(Education education);
 
     Education findById(int id);
 

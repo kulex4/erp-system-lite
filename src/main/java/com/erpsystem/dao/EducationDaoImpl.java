@@ -18,17 +18,20 @@ import java.util.List;
 public class EducationDaoImpl implements EducationDao {
 
     @Override
-    public void insert(Education education) {
+    public int insert(Education education) {
 
+        int id;
         Connection dbConnection = null;
         try {
             dbConnection = DatabaseManager.getDBConnection();
             DSLContext context = DSL.using(dbConnection, SQLDialect.MYSQL);
 
-            context.insertInto(EDUCATION)
+            Record record = context.insertInto(EDUCATION)
                     .set(EDUCATION.NAME, education.getName())
                     .set(EDUCATION.FACTOR, education.getFactor())
-                    .execute();
+                    .returning(EDUCATION.ID_EDUCATION)
+                    .fetchOne();
+            id = record.getValue(EDUCATION.ID_EDUCATION);
 
         } finally {
             if(dbConnection != null) {
@@ -37,21 +40,25 @@ public class EducationDaoImpl implements EducationDao {
                 } catch (SQLException ignore) { }
             }
         }
+        return id;
     }
 
     @Override
-    public void update(Education education) {
+    public int update(Education education) {
 
+        int id;
         Connection dbConnection = null;
         try {
             dbConnection = DatabaseManager.getDBConnection();
             DSLContext context = DSL.using(dbConnection, SQLDialect.MYSQL);
 
-            context.update(EDUCATION)
+            Record record = context.update(EDUCATION)
                     .set(EDUCATION.NAME, education.getName())
                     .set(EDUCATION.FACTOR, education.getFactor())
                     .where(EDUCATION.ID_EDUCATION.equal(education.getIdEducation()))
-                    .execute();
+                    .returning(EDUCATION.ID_EDUCATION)
+                    .fetchOne();
+            id = record.getValue(EDUCATION.ID_EDUCATION);
 
         } finally {
             if(dbConnection != null) {
@@ -60,6 +67,7 @@ public class EducationDaoImpl implements EducationDao {
                 } catch (SQLException ignore) { }
             }
         }
+        return id;
     }
 
     @Override
@@ -71,13 +79,7 @@ public class EducationDaoImpl implements EducationDao {
             DSLContext context = DSL.using(dbConnection, SQLDialect.MYSQL);
 
             Record record = context.select().from(EDUCATION).where(EDUCATION.ID_EDUCATION.equal(id)).fetchOne();
-
-            if(record != null) {
-                education = new Education(
-                        record.getValue(EDUCATION.ID_EDUCATION),
-                        record.getValue(EDUCATION.NAME),
-                        record.getValue(EDUCATION.FACTOR));
-            }
+            education = manageChildObjects(record);
 
         } finally {
             if(dbConnection != null) {
@@ -100,10 +102,7 @@ public class EducationDaoImpl implements EducationDao {
 
             Result<Record> records = context.select().from(EDUCATION).fetch();
             for(Record r : records) {
-                Education education = new Education(
-                        r.getValue(EDUCATION.ID_EDUCATION),
-                        r.getValue(EDUCATION.NAME),
-                        r.getValue(EDUCATION.FACTOR));
+                Education education = manageChildObjects(r);
                 educations.add(education);
             }
 
@@ -115,5 +114,18 @@ public class EducationDaoImpl implements EducationDao {
             }
         }
         return educations;
+    }
+
+    private Education manageChildObjects(Record record) {
+
+        Education education = null;
+
+        if(record != null) {
+            education = new Education(
+                    record.getValue(EDUCATION.ID_EDUCATION),
+                    record.getValue(EDUCATION.NAME),
+                    record.getValue(EDUCATION.FACTOR));
+        }
+        return education;
     }
 }

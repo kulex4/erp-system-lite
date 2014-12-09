@@ -18,21 +18,24 @@ import java.util.List;
 public class CompanyDaoImpl implements CompanyDao {
 
     @Override
-    public void insert(Company company) {
+    public int insert(Company company) {
 
+        int id;
         Connection dbConnection = null;
         try {
             dbConnection = DatabaseManager.getDBConnection();
             DSLContext context = DSL.using(dbConnection, SQLDialect.MYSQL);
 
-            context.insertInto(COMPANY)
+            Record record = context.insertInto(COMPANY)
                     .set(COMPANY.NAME, company.getName())
                     .set(COMPANY.DESCRIPTION, company.getDescription())
                     .set(COMPANY.NUMBER_OF_MANAGERS, company.getNumberOfManagers())
                     .set(COMPANY.NUMBER_OF_QUALIFIED_MANAGERS, company.getNumberOfQualifiedManagers())
                     .set(COMPANY.NUMBER_OF_NOT_QUALIFIED_MANAGERS, company.getNumberOfNotQualifiedManagers())
                     .set(COMPANY.TRAINING_COST, company.getTrainingCost())
-                    .execute();
+                    .returning(COMPANY.ID_COMPANY)
+                    .fetchOne();
+            id = record.getValue(COMPANY.ID_COMPANY);
 
         } finally {
             if(dbConnection != null) {
@@ -41,24 +44,29 @@ public class CompanyDaoImpl implements CompanyDao {
                 } catch (SQLException ignore) { }
             }
         }
+        return id;
     }
 
     @Override
-    public void update(Company company) {
+    public int update(Company company) {
+
+        int id;
         Connection dbConnection = null;
         try {
             dbConnection = DatabaseManager.getDBConnection();
             DSLContext context = DSL.using(dbConnection, SQLDialect.MYSQL);
 
-            context.update(COMPANY)
+            Record record = context.update(COMPANY)
                     .set(COMPANY.NAME, company.getName())
                     .set(COMPANY.DESCRIPTION, company.getDescription())
                     .set(COMPANY.NUMBER_OF_MANAGERS, company.getNumberOfManagers())
                     .set(COMPANY.NUMBER_OF_QUALIFIED_MANAGERS, company.getNumberOfQualifiedManagers())
                     .set(COMPANY.NUMBER_OF_NOT_QUALIFIED_MANAGERS, company.getNumberOfNotQualifiedManagers())
                     .set(COMPANY.TRAINING_COST, company.getTrainingCost())
-                    .where(COMPANY.ID.equal(company.getId()))
-                    .execute();
+                    .where(COMPANY.ID_COMPANY.equal(company.getIdCompany()))
+                    .returning(COMPANY.ID_COMPANY)
+                    .fetchOne();
+            id = record.getValue(COMPANY.ID_COMPANY);
 
         } finally {
             if(dbConnection != null) {
@@ -67,6 +75,7 @@ public class CompanyDaoImpl implements CompanyDao {
                 } catch (SQLException ignore) { }
             }
         }
+        return id;
     }
 
     @Override
@@ -78,17 +87,7 @@ public class CompanyDaoImpl implements CompanyDao {
             DSLContext context = DSL.using(dbConnection, SQLDialect.MYSQL);
 
             Record record = context.select().from(COMPANY).where(COMPANY.NAME.equal(name)).fetchOne();
-
-            if(record != null) {
-                company = new Company(
-                        record.getValue(COMPANY.ID),
-                        record.getValue(COMPANY.NAME),
-                        record.getValue(COMPANY.DESCRIPTION),
-                        record.getValue(COMPANY.NUMBER_OF_MANAGERS),
-                        record.getValue(COMPANY.NUMBER_OF_QUALIFIED_MANAGERS),
-                        record.getValue(COMPANY.NUMBER_OF_NOT_QUALIFIED_MANAGERS),
-                        record.getValue(COMPANY.TRAINING_COST));
-            }
+            company = manageChildObjects(record);
 
         } finally {
             if(dbConnection != null) {
@@ -101,6 +100,28 @@ public class CompanyDaoImpl implements CompanyDao {
     }
 
     @Override
+    public Company findById(int id) {
+        Company company = null;
+        Connection dbConnection = null;
+        try {
+            dbConnection = DatabaseManager.getDBConnection();
+            DSLContext context = DSL.using(dbConnection, SQLDialect.MYSQL);
+
+            Record record = context.select().from(COMPANY).where(COMPANY.ID_COMPANY.equal(id)).fetchOne();
+            company = manageChildObjects(record);
+
+        } finally {
+            if(dbConnection != null) {
+                try {
+                    dbConnection.close();
+                } catch (SQLException ignore) { }
+            }
+        }
+        return company;
+    }
+
+
+    @Override
     public List<Company> findAll() {
         List<Company> companies = new ArrayList<>();
 
@@ -111,14 +132,7 @@ public class CompanyDaoImpl implements CompanyDao {
 
             Result<Record> records = context.select().from(COMPANY).fetch();
             for(Record r : records) {
-                Company company = new Company(
-                        r.getValue(COMPANY.ID),
-                        r.getValue(COMPANY.NAME),
-                        r.getValue(COMPANY.DESCRIPTION),
-                        r.getValue(COMPANY.NUMBER_OF_MANAGERS),
-                        r.getValue(COMPANY.NUMBER_OF_QUALIFIED_MANAGERS),
-                        r.getValue(COMPANY.NUMBER_OF_NOT_QUALIFIED_MANAGERS),
-                        r.getValue(COMPANY.TRAINING_COST));
+                Company company = manageChildObjects(r);
                 companies.add(company);
             }
         } finally {
@@ -131,16 +145,20 @@ public class CompanyDaoImpl implements CompanyDao {
         return companies;
     }
 
-    // just for tests
-    public static void main(String[] args) {
-        CompanyDaoImpl dao = new CompanyDaoImpl();
-        /*Company company = new Company("Home UPDATED", "Home Company", 11, 8, 2, 100.0);
-        company.setId(8);
-        dao.update(company);*/
+    private Company manageChildObjects(Record record) {
 
-        /*List<Company> companies = dao.findAll();
-        System.out.println(companies.size());*/
+        Company company = null;
 
-        Company company = dao.findByName("ITRexGroup");
+        if(record != null) {
+            company = new Company(
+                    record.getValue(COMPANY.ID_COMPANY),
+                    record.getValue(COMPANY.NAME),
+                    record.getValue(COMPANY.DESCRIPTION),
+                    record.getValue(COMPANY.NUMBER_OF_MANAGERS),
+                    record.getValue(COMPANY.NUMBER_OF_QUALIFIED_MANAGERS),
+                    record.getValue(COMPANY.NUMBER_OF_NOT_QUALIFIED_MANAGERS),
+                    record.getValue(COMPANY.TRAINING_COST));
+        }
+        return company;
     }
 }
