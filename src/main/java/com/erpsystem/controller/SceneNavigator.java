@@ -12,14 +12,9 @@ public class SceneNavigator {
     public static final String MAIN = "/scenes/main-container.fxml";
     public static final String START_SCENE = "/scenes/start-page.fxml";
 
-    public static final String SPECIALISTS_SCENE = "/scenes/specialist-page.fxml";
-    public static final String CHOOSE_SPECIALIST_SCENE = "/scenes/start-page.fxml";
-    public static final String ADD_SPECIALIST_SCENE = "/scenes/start-page.fxml";
-
     public static final String COMPANY_DETAILS_SCENE = "/scenes/company-details-page.fxml";
-    public static final String ADD_COMPANY_DETAILS_SCENE = "/scenes/company-details-page.fxml";
-    public static final String VIEW_COMPANY_DETAILS_SCENE = "/scenes/company-details-page.fxml";
-
+    public static final String SPECIALISTS_SCENE = "/scenes/specialist-page.fxml";
+    public static final String SPECIALISTS_CRUD_SCENE = "/scenes/specialist-crud-page.fxml";
     public static final String WORK_REPORTS_SCENE = "/scenes/work-reports-page.fxml";
 
     private static MainController mainController;

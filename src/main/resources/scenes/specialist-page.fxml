@@ -8,7 +8,7 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.erpsystem.controller.SpecialistController">
     <children>
         <Button fx:id="backButton" layoutX="41.0" layoutY="410.0" mnemonicParsing="false" onAction="#backButtonClick" prefWidth="80.0" text="Назад" />
-        <TableView fx:id="tableSpecialists" layoutX="41.0" layoutY="43.0" prefHeight="347.0" prefWidth="559.0">
+        <TableView fx:id="tableSpecialists" layoutX="41.0" layoutY="43.0" prefHeight="350.0" prefWidth="560.0">
             <columns>
                 <TableColumn fx:id="fioColumn" editable="false" minWidth="-1.0" prefWidth="117.0" resizable="false" text="ФИО" />
                 <TableColumn fx:id="educationColumn" editable="false" minWidth="-1.0" prefWidth="97.0" resizable="false" text="Образование" />
@@ -20,6 +20,6 @@
         <Button fx:id="deleteButton" layoutX="340.0" layoutY="410.0" mnemonicParsing="false" onAction="#deleteButtonClick" prefWidth="80.0" text="Удалить" />
         <Button fx:id="modifyButton" layoutX="430.0" layoutY="410.0" mnemonicParsing="false" onAction="#modifyButtonClick" prefWidth="80.0" text="Изменить" />
         <Button fx:id="addButton" layoutX="520.0" layoutY="410.0" mnemonicParsing="false" onAction="#addButtonClick" prefWidth="80.0" text="Добавить" />
-        <Button fx:id="moreInfoButton" layoutX="250.0" layoutY="410.0" mnemonicParsing="false" onAction="#deleteButtonClick" prefWidth="80.0" text="Подробнее" />
+        <Button fx:id="moreInfoButton" layoutX="250.0" layoutY="410.0" mnemonicParsing="false" onAction="#moreInfoButtonClick" prefWidth="80.0" text="Подробнее" />
     </children>
 </Pane>

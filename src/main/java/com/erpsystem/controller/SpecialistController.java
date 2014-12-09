@@ -30,8 +30,6 @@ public class SpecialistController implements Initializable {
     private EducationDao educationDao;
     private CompetenceDao competenceDao;
 
-    private boolean selected = false;
-
     private Company currentCompany;
     private ObservableList<TableViewObject> specialistsData = FXCollections.observableArrayList();
 
@@ -79,11 +77,7 @@ public class SpecialistController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         initTableData();
 
-        if(!selected) {
-            deleteButton.setDisable(true);
-            modifyButton.setDisable(true);
-            moreInfoButton.setDisable(true);
-        }
+        changeButtonsAccessability(false);
 
         fioColumn.setCellValueFactory(new PropertyValueFactory<TableViewObject, String>("fio"));
         educationColumn.setCellValueFactory(new PropertyValueFactory<TableViewObject, String>("education"));
@@ -92,6 +86,9 @@ public class SpecialistController implements Initializable {
         communicabilityColumn.setCellValueFactory(new PropertyValueFactory<TableViewObject, Integer>("communicability"));
 
         tableSpecialists.setItems(specialistsData);
+
+        tableSpecialists.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> changeUI(newValue));
     }
 
     private void initTableData() {
@@ -112,9 +109,19 @@ public class SpecialistController implements Initializable {
         }
     }
 
+    private void changeUI(TableViewObject object) {
+        changeButtonsAccessability(true);
+    }
+
+    private void changeButtonsAccessability(boolean enable) {
+        deleteButton.setDisable(!enable);
+        modifyButton.setDisable(!enable);
+        moreInfoButton.setDisable(!enable);
+    }
+
     @FXML
     private void addButtonClick(ActionEvent event) {
-
+        SceneNavigator.loadScene(SceneNavigator.SPECIALISTS_CRUD_SCENE);
     }
 
     @FXML
@@ -124,12 +131,12 @@ public class SpecialistController implements Initializable {
 
     @FXML
     private void modifyButtonClick(ActionEvent event) {
-
+        SceneNavigator.loadScene(SceneNavigator.SPECIALISTS_CRUD_SCENE);
     }
 
     @FXML
     private void moreInfoButtonClick(ActionEvent event) {
-
+        SceneNavigator.loadScene(SceneNavigator.SPECIALISTS_CRUD_SCENE);
     }
 
     @FXML
