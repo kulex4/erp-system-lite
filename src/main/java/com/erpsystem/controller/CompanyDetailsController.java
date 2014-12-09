@@ -48,7 +48,7 @@ public class CompanyDetailsController implements Initializable {
 
     public CompanyDetailsController() {
         companyDao = new CompanyDaoImpl();
-        currentCompany = companyDao.findByName("ITRexGroup");
+        currentCompany = companyDao.findByName("ОАО \"НЛМК\"");
         saveState = "Сохранить";
         modifyState = "Изменить";
     }

@@ -95,7 +95,7 @@ public class SpecialistController implements Initializable {
     }
 
     private void initTableData() {
-        currentCompany = companyDao.findByName("ITRexGroup");
+        currentCompany = companyDao.findByName("ОАО \"НЛМК\"");
         List<Specialist> specialists = specialistDao.findAllByCompanyId(currentCompany.getIdCompany());
 
         for(Specialist specialist : specialists) {
