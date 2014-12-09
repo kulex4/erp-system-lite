@@ -155,7 +155,7 @@ public class SpecialistDaoImpl implements SpecialistDao {
             dbConnection = DatabaseManager.getDBConnection();
             DSLContext context = DSL.using(dbConnection, SQLDialect.MYSQL);
 
-            Result<Record> records = context.select().from(COMPANY).fetch();
+            Result<Record> records = context.select().from(SPECIALIST).fetch();
             for(Record r : records) {
                 Specialist specialist = new Specialist(
                         r.getValue(SPECIALIST.ID),
